@@ -122,7 +122,6 @@ OpalDynamicElement.prototype.isOnScreen = function() {
         else {
             middlePosition += this.margin.top;
         }
-        console.log( middlePosition );
     }
     
     var topScreen = $(window).scrollTop();
