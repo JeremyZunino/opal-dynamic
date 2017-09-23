@@ -12,7 +12,7 @@ var OpalDynamic = function() {
     $(window, "body").resize(function () {
         self.scroll();
     });
-    
+
 };
 
 OpalDynamic.prototype.setupElement = function(el) {
@@ -73,12 +73,15 @@ OpalDynamicElement.prototype.init = function() {
     this.isVisible      = false;
     this.firstDisplayed = false;
 
-    if( this.isOnScreen() ) {
-        this.show()
-    }
-    else {
-        this.hide();
-    }
+    // Remove CSS transitions
+    $(this.element).addClass("opal-dynamic-no-transition");
+    // Hide element
+    this.hide();
+    // Restore CSS transitions
+    setTimeout(function() {
+        $(self.element).removeClass("opal-dynamic-no-transition");
+        $(window).trigger("scroll");
+    }, 1);
 };
 
 
@@ -123,7 +126,7 @@ OpalDynamicElement.prototype.isOnScreen = function() {
             middlePosition += this.margin.top;
         }
     }
-    
+
     var topScreen = $(window).scrollTop();
     var bottomScreen = $(window).scrollTop() + $(window).height();
 
@@ -150,9 +153,9 @@ OpalDynamicElement.prototype.show = function() {
 
     // self.timeOut = setTimeout(function() {
     //     console.log( self );
-        self.removeClassAll( this.hiddenClass );
-        self.addClassOnce( this.visibleClass );
-        self.firstDisplayed = true;
+    self.removeClassAll( this.hiddenClass );
+    self.addClassOnce( this.visibleClass );
+    self.firstDisplayed = true;
     // }, self.showDelay);
 };
 
