@@ -39,18 +39,28 @@ var OpalDynamicElement = function(element) {
 };
 
 
+OpalDynamicElement.prototype.hasData = function(data) {
+    return $(this.element).data("dynamic-"+data) != null;
+};
+
+
 OpalDynamicElement.prototype.dataOrDefault = function(data, defaultValue) {
-    return $(this.element).data(data) != null ? $(this.element).data(data) : defaultValue;
+    return this.hasData(data) ? $(this.element).data("dynamic-"+data) : defaultValue;
 };
 
 
 OpalDynamicElement.prototype.init = function() {
-    this.hiddenClass  = this.dataOrDefault("dynamic-hidden", "opal-dynamic-hidden");
-    this.visibleClass = this.dataOrDefault("dynamic-visible", "opal-dynamic-visible");
-    this.showDelay    = this.dataOrDefault("dynamic-show-delay", 0);
-    this.hideDelay    = this.dataOrDefault("dynamic-hide-delay", 0);
-    this.loop         = this.dataOrDefault("dynamic-loop", false);
+    this.hiddenClass  = this.dataOrDefault("hidden", "opal-dynamic-hidden");
+    this.visibleClass = this.dataOrDefault("visible", "opal-dynamic-visible");
+    this.showDelay    = this.dataOrDefault("show-delay", 0);
+    this.hideDelay    = this.dataOrDefault("hide-delay", 0);
+    this.loop         = this.dataOrDefault("loop", false);
     this.timeOut      = null;
+
+    if(this.hasData("from-left"))   this.hiddenClass = "opal-dynamic-from-left";
+    if(this.hasData("from-right"))  this.hiddenClass = "opal-dynamic-from-right";
+    if(this.hasData("from-top"))    this.hiddenClass = "opal-dynamic-from-top";
+    if(this.hasData("from-bottom")) this.hiddenClass = "opal-dynamic-from-bottom";
 
     this.isVisible      = false;
     this.firstDisplayed = false;
@@ -67,11 +77,8 @@ OpalDynamicElement.prototype.init = function() {
 OpalDynamicElement.prototype.update = function() {
     var self = this;
 
-
     // Watch if element is on screen
     var visible = this.isOnScreen();
-    
-    // console.log( visible, this.isVisible, this.firstDisplayed );
 
     // If element is on screen and not already visible
     if( visible && !this.isVisible ) {
@@ -86,7 +93,6 @@ OpalDynamicElement.prototype.update = function() {
 
     // If element effect can be loop, and element not in screen and element is already displayed
     else if( this.loop && !visible && this.isVisible ) {
-        console.log( "cacher" );
         // Set visibility for false
         this.isVisible = false;
         // Reste element timer and prepare timer to hide
@@ -137,6 +143,7 @@ OpalDynamicElement.prototype.hide = function() {
     this.removeClassAll( this.visibleClass );
     this.addClassOnce( this.hiddenClass );
 };
+
 
 OpalDynamicElement.prototype.display = function(state) {
     if( state == null ) return $(this.element).hasClass("display");

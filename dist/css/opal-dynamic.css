@@ -1,8 +1,30 @@
 .opal-dynamic-hidden {
     opacity: 0;
+    transform: initial;
     transition: all .8s;
 }
 .opal-dynamic-visible {
     opacity: 1;
+    transition: all .8s;
+}
+
+.opal-dynamic-from-left {
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: all .8s;
+}
+.opal-dynamic-from-right {
+    opacity: 0;
+    transform: translateX(50%);
+    transition: all .8s;
+}
+.opal-dynamic-from-top {
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: all .8s;
+}
+.opal-dynamic-from-bottom {
+    opacity: 0;
+    transform: translateY(50%);
     transition: all .8s;
 }
