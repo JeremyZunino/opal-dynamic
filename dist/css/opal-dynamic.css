@@ -6,7 +6,7 @@
 }
 
 .opal-dynamic-hidden {
-    opacity: 0;
+    opacity: 0 !important;
     transform: initial;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -14,7 +14,7 @@
     transition: all .5s;
 }
 .opal-dynamic-visible {
-    opacity: 1;
+    opacity: 1 !important;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     -o-transition: all .5s;
@@ -22,7 +22,7 @@
 }
 
 .opal-dynamic-from-left {
-    opacity: 0;
+    opacity: 0 !important;
     transform: translateX(-50%);
     -webkit-transition: all .8s;
     -moz-transition: all .8s;
@@ -30,7 +30,7 @@
     transition: all .8s;
 }
 .opal-dynamic-from-right {
-    opacity: 0;
+    opacity: 0 !important;
     transform: translateX(50%);
     -webkit-transition: all .8s;
     -moz-transition: all .8s;
@@ -38,7 +38,7 @@
     transition: all .8s;
 }
 .opal-dynamic-from-top {
-    opacity: 0;
+    opacity: 0 !important;
     transform: translateY(-50%);
     -webkit-transition: all .8s;
     -moz-transition: all .8s;
@@ -46,7 +46,7 @@
     transition: all .8s;
 }
 .opal-dynamic-from-bottom {
-    opacity: 0;
+    opacity: 0 !important;
     transform: translateY(50%);
     -webkit-transition: all .8s;
     -moz-transition: all .8s;
