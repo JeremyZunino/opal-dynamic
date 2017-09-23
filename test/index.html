@@ -29,6 +29,8 @@
             vertical-align: top;
         }
         code {
+            display: block;
+            margin-bottom: 15px;
             border: 1px black solid;
             padding: 6px 15px;
         }
@@ -46,6 +48,9 @@
     <section>
         <div class="row">
             <div class="element" data-dynamic></div>
+            <div class="comment">
+                <code><strong>data-dynamic</strong></code>
+            </div>
         </div>
         <div class="row">
             <div class="element" data-dynamic data-dynamic-hidden="hidden-red" data-dynamic-visible="visible-green"></div>
@@ -60,19 +65,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="element" data-dynamic></div>
+            <div class="element" data-dynamic data-dynamic-show-delay="500" data-dynamic-hide-delay="500" data-dynamic-loop="true"></div>
+            <div class="comment">
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-show-delay</strong>="500" <strong>data-dynamic-hide-delay</strong>="500" <strong>data-dynamic-loop</strong>="true"</code>
+            </div>
         </div>
         <div class="row">
-            <div class="element" data-dynamic></div>
-        </div>
-        <div class="row">
-            <div class="element" data-dynamic></div>
-        </div>
-        <div class="row">
-            <div class="element" data-dynamic></div>
-        </div>
-        <div class="row">
-            <div class="element" data-dynamic></div>
+            <div class="element" data-dynamic data-dynamic-show-delay="0" data-dynamic-loop="true"></div>
+            <div class="element" data-dynamic data-dynamic-show-delay="300" data-dynamic-loop="true"></div>
+            <div class="element" data-dynamic data-dynamic-show-delay="600" data-dynamic-loop="true"></div>
+            <div class="element" data-dynamic data-dynamic-show-delay="900" data-dynamic-loop="true"></div>
+            <div class="comment">
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-show-delay</strong>="0" <strong>data-dynamic-loop</strong>="true"</code>
+                <br />
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-show-delay</strong>="300" <strong>data-dynamic-loop</strong>="true"</code>
+                <br />
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-show-delay</strong>="600" <strong>data-dynamic-loop</strong>="true"</code>
+                <br />
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-show-delay</strong>="900" <strong>data-dynamic-loop</strong>="true"</code>
+            </div>
         </div>
     </section>
 

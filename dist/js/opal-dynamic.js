@@ -47,8 +47,12 @@ OpalDynamicElement.prototype.dataOrDefault = function(data, defaultValue) {
 OpalDynamicElement.prototype.init = function() {
     this.hiddenClass  = this.dataOrDefault("dynamic-hidden", "opal-dynamic-hidden");
     this.visibleClass = this.dataOrDefault("dynamic-visible", "opal-dynamic-visible");
+    this.showDelay    = this.dataOrDefault("dynamic-show-delay", 0);
+    this.hideDelay    = this.dataOrDefault("dynamic-hide-delay", 0);
     this.loop         = this.dataOrDefault("dynamic-loop", false);
+    this.timeOut      = null;
 
+    this.isVisible      = true;
     this.firstDisplayed = false;
 
     this.update();
@@ -56,19 +60,34 @@ OpalDynamicElement.prototype.init = function() {
 
 
 OpalDynamicElement.prototype.update = function() {
+    var self = this;
     var visible = this.isOnScreen();
 
-    if( !visible ) {
+    if( !visible && this.isVisible ) {
+        var hideAction = false;
         if( !this.loop ) {
             if( !this.firstDisplayed ) {
-                this.hide();
+                hideAction = true;
             }
         }
-        else this.hide();
+        else {
+            hideAction = true;
+        }
+
+        if( hideAction ) {
+            console.log( "hide" );
+            this.isVisible = false;
+            this.timeOut = setTimeout(function() {
+                self.hide();
+            }, self.hideDelay);
+        }
     }
-    else {
-        console.log( this.element );
-        this.show();
+    else if( visible && !this.isVisible ) {
+        console.log( "show" );
+        this.isVisible = true;
+        this.timeOut = setTimeout(function() {
+            self.show();
+        }, self.showDelay);
     }
 };
 
@@ -97,9 +116,14 @@ OpalDynamicElement.prototype.removeClassAll = function(className) {
 
 
 OpalDynamicElement.prototype.show = function() {
-    this.removeClassAll( this.hiddenClass );
-    this.addClassOnce( this.visibleClass );
-    this.firstDisplayed = true;
+    var self = this;
+
+    // self.timeOut = setTimeout(function() {
+    //     console.log( self );
+        self.removeClassAll( this.hiddenClass );
+        self.addClassOnce( this.visibleClass );
+        self.firstDisplayed = true;
+    // }, self.showDelay);
 };
 
 
