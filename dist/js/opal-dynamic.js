@@ -52,42 +52,48 @@ OpalDynamicElement.prototype.init = function() {
     this.loop         = this.dataOrDefault("dynamic-loop", false);
     this.timeOut      = null;
 
-    this.isVisible      = true;
+    this.isVisible      = false;
     this.firstDisplayed = false;
 
-    this.update();
+    if( this.isOnScreen() ) {
+        this.show()
+    }
+    else {
+        this.hide();
+    }
 };
 
 
 OpalDynamicElement.prototype.update = function() {
     var self = this;
+
+
+    // Watch if element is on screen
     var visible = this.isOnScreen();
+    
+    // console.log( visible, this.isVisible, this.firstDisplayed );
 
-    if( !visible && this.isVisible ) {
-        var hideAction = false;
-        if( !this.loop ) {
-            if( !this.firstDisplayed ) {
-                hideAction = true;
-            }
-        }
-        else {
-            hideAction = true;
-        }
-
-        if( hideAction ) {
-            console.log( "hide" );
-            this.isVisible = false;
-            this.timeOut = setTimeout(function() {
-                self.hide();
-            }, self.hideDelay);
-        }
-    }
-    else if( visible && !this.isVisible ) {
-        console.log( "show" );
+    // If element is on screen and not already visible
+    if( visible && !this.isVisible ) {
+        // Set visibility for true
         this.isVisible = true;
+        // Reset element timer and prepare timer to show
         this.timeOut = setTimeout(function() {
+            // Run show action
             self.show();
         }, self.showDelay);
+    }
+
+    // If element effect can be loop, and element not in screen and element is already displayed
+    else if( this.loop && !visible && this.isVisible ) {
+        console.log( "cacher" );
+        // Set visibility for false
+        this.isVisible = false;
+        // Reste element timer and prepare timer to hide
+        this.timeOut = setTimeout(function() {
+            // Run hide action
+            self.hide();
+        }, self.hideDelay);
     }
 };
 
