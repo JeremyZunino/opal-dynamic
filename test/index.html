@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Opal-Dynamic Tests</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .row {
+            display: block;
+        }
+        .element {
+            display: inline-block;
+            vertical-align: top;
+            background: #d3d3d3;
+            width: 300px;
+            height: 400px;
+            margin: 15px;
+        }
+        .comment {
+            padding: 15px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        code {
+            border: 1px black solid;
+            padding: 6px 15px;
+        }
+
+        .hidden-red {
+            background: #ffd3d3;
+        }
+        .visible-green {
+            background: #d3ffd3;
+        }
+    </style>
+</head>
+<body>
+
+    <section>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic data-dynamic-hidden="hidden-red" data-dynamic-visible="visible-green"></div>
+            <div class="comment">
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-hidden</strong>="hidden-red" <strong>data-dynamic-visible</strong>="visible-green"</code>
+            </div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic data-dynamic-hidden="hidden-red" data-dynamic-visible="visible-green" data-dynamic-loop="true"></div>
+            <div class="comment">
+                <code><strong>data-dynamic</strong> <strong>data-dynamic-hidden</strong>="hidden-red" <strong>data-dynamic-visible</strong>="visible-green" <strong>data-dynamic-loop</strong>="true"</code>
+            </div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+        <div class="row">
+            <div class="element" data-dynamic></div>
+        </div>
+    </section>
+
+
+    <script type="text/javascript" src="./src/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../dist/js/opal-dynamic.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var dynamic = new OpalDynamic();
+        });
+    </script>
+
+</body>
+</html>
