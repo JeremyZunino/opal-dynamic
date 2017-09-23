@@ -50,17 +50,25 @@ OpalDynamicElement.prototype.dataOrDefault = function(data, defaultValue) {
 
 
 OpalDynamicElement.prototype.init = function() {
+    var self = this;
+
     this.hiddenClass  = this.dataOrDefault("hidden", "opal-dynamic-hidden");
     this.visibleClass = this.dataOrDefault("visible", "opal-dynamic-visible");
     this.showDelay    = this.dataOrDefault("show-delay", 0);
     this.hideDelay    = this.dataOrDefault("hide-delay", 0);
     this.loop         = this.dataOrDefault("loop", false);
     this.timeOut      = null;
+    this.margin       = {
+        top    : self.dataOrDefault("margin-top",    0),
+        // right  : self.dataOrDefault("margin-right",  0),
+        // bottom : self.dataOrDefault("margin-bottom", 0),
+        // left   : self.dataOrDefault("margin-left",   0)
+    };
 
-    if(this.hasData("from-left"))   this.hiddenClass = "opal-dynamic-from-left";
-    if(this.hasData("from-right"))  this.hiddenClass = "opal-dynamic-from-right";
-    if(this.hasData("from-top"))    this.hiddenClass = "opal-dynamic-from-top";
-    if(this.hasData("from-bottom")) this.hiddenClass = "opal-dynamic-from-bottom";
+    if(this.hasData("from-left"))   { this.hiddenClass = "opal-dynamic-from-left";                             }
+    if(this.hasData("from-right"))  { this.hiddenClass = "opal-dynamic-from-right";                            }
+    if(this.hasData("from-top"))    { this.hiddenClass = "opal-dynamic-from-top";    this.margin.top = "50%";  }
+    if(this.hasData("from-bottom")) { this.hiddenClass = "opal-dynamic-from-bottom"; this.margin.top = "-50%"; }
 
     this.isVisible      = false;
     this.firstDisplayed = false;
@@ -106,6 +114,17 @@ OpalDynamicElement.prototype.update = function() {
 
 OpalDynamicElement.prototype.isOnScreen = function() {
     var middlePosition = $(this.element).offset().top + $(this.element).height() / 2;
+
+    if( this.margin.top != null || this.margin.top != "" || Number(this.margin.top) != 0 ) {
+        if( String(this.margin.top).indexOf("%") > -1 ) {
+            middlePosition += $(this.element).height() * Number(this.margin.top.replace("%","")) / 100;
+        }
+        else {
+            middlePosition += this.margin.top;
+        }
+        console.log( middlePosition );
+    }
+    
     var topScreen = $(window).scrollTop();
     var bottomScreen = $(window).scrollTop() + $(window).height();
 
